@@ -1,4 +1,13 @@
+[settings]
+experimental = true
+lockfile = true
+
 [tools]
 go = "1.27.1"
 golangci-lint = "2.14.0"
 goreleaser = "2.18.2"
+helm = "4"
+kubectl = "1.35"
+shellcheck = "0"
+pre-commit = "4"
+"aqua:gitleaks/gitleaks" = "8"
