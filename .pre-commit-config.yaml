@@ -9,10 +9,17 @@ repos:
         exclude: /templates/
       - id: check-merge-conflict
       - id: check-added-large-files
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: detect-private-key
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.30.0
     hooks:
       - id: gitleaks
+        name: gitleaks
+        entry: gitleaks git --pre-commit --staged --redact --verbose
+        language: system
+        pass_filenames: false
   - repo: local
     hooks:
       - id: go-mod-tidy
@@ -27,6 +34,17 @@ repos:
         language: system
         types: [go]
         pass_filenames: false
+      - id: shellcheck
+        name: shellcheck
+        entry: shellcheck
+        language: system
+        types: [shell]
+      - id: check-manifests
+        name: check manifests
+        entry: scripts/check-manifests.sh
+        language: system
+        pass_filenames: false
+        files: \.(ya?ml|tpl)$
       # When a repo has a Go module outside the root, copy both hooks and run them in that folder.
       # - id: go-mod-tidy-test
       #   name: go mod tidy (test)
