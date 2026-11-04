@@ -1,6 +1,5 @@
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+  - repo: builtin
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -12,14 +11,6 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
       - id: detect-private-key
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.30.0
-    hooks:
-      - id: gitleaks
-        name: gitleaks
-        entry: gitleaks git --pre-commit --staged --redact --verbose
-        language: system
-        pass_filenames: false
   - repo: local
     hooks:
       - id: go-mod-tidy
@@ -33,6 +24,11 @@ repos:
         entry: golangci-lint run --new-from-rev HEAD --fix
         language: system
         types: [go]
+        pass_filenames: false
+      - id: gitleaks
+        name: gitleaks
+        entry: gitleaks git --pre-commit --staged --redact --verbose
+        language: system
         pass_filenames: false
       - id: shellcheck
         name: shellcheck
